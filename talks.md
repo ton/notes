@@ -30,8 +30,8 @@
 # [Programming Conversations: Lecture 10](https://www.youtube.com/watch?v=vW14_vP23UU) (A. Stephanov)
 
 * Minimal requirement for an ordering; transitivity: r(x, y) ∧ r(y, z) ⇒ r(x, z)
-* Strict ordering ≡ non-reflexive ordering (<)
-  Non-strict ordering ≡ reflexive ordering (≥)
+* Strict ordering ≡ non-reflexive ordering; ¬r(a, a)
+  Non-strict ordering ≡ reflexive ordering; r(a, a)
 * The following operations on relations can be observed:
   ```
      r(a, b) ---converse--- r(b, a)           < ------ >
