@@ -96,7 +96,7 @@
 * -Wshadow-compatible-local is a useful shadow warning flag.
 * ASAN is great.
 
-# [Programming Conversations: Lecture 10](https://www.youtube.com/watch?v=vW14_vP23UU) (A. Stephanov)
+# [Programming Conversations: Lecture 10](https://www.youtube.com/watch?v=vW14_vP23UU) (Alexander Stephanov)
 
 * Minimal requirement for an ordering; transitivity: r(x, y) ∧ r(y, z) ⇒ r(x, z)
 * Strict ordering ≡ non-reflexive ordering; ¬r(a, a)
@@ -113,12 +113,20 @@
     1. Reflexivity: a ~ a
     2. Symmetry: a ~ b iff. b ~ a
     3. Transitivity: a ~ b ∧ b ~ c ⇒ a ~ c
-* Weak ordering: transitivity of incomparability holds.
-* Total ordering uses equality as the equivalence relation!
+* Total ordering uses equality as the equivalence relation, and has to adhere
+  to the following requirements:
+    1. Anti-symmetry; a ≤ b ∧ b ≤ a, then a = b
+    2. Transitivity
+    3. Trichotomy; a < b ∨ a > b ∨ a = b; equivalent, the connex property: a ≤ b ∨ b ≤ a
+* Weak ordering, the third requirement reads:
+    3. Trichotomy; a < b ∨ a > b ∨ a is equivalent to b
+  So, an equivalence relation other than equality is used. Think for example
+  about an employee struct, that defines a less than operator based on the
+  surname only.
 * Issue with std::max() in the standard, std::max(a, b), with a ~ b, should
   return b instead of a.
 
-# [Programming Conversations: Lecture 11](https://www.youtube.com/watch?v=LOYOxxiF_hA) (A. Stephanov)
+# [Programming Conversations: Lecture 11](https://www.youtube.com/watch?v=LOYOxxiF_hA) (Alexander Stephanov)
 
 * Fundamental properties of type in C/C++, sizeof and alignof. Why is alignment
   important? Some processors do not support arbitrary alignment.
@@ -135,7 +143,7 @@
 
     x = y <=> ∀p : p(x) = p(y)
 
-# [Programming Conversations: Lecture 12](https://www.youtube.com/watch?v=1FE6C9kfGBI) (A. Stephanov)
+# [Programming Conversations: Lecture 12](https://www.youtube.com/watch?v=1FE6C9kfGBI) (Alexander Stephanov)
 
 * Defining equality is sometimes hard; for example, two priority queues are
   equal in case they will pop items in the same order, but that may be hard to
@@ -197,7 +205,7 @@
   member function possibly changes the parent object.
 * Continue: ~1:17:00
 
-# [Efficient Programming with Components, Lecture 2](https://www.youtube.com/watch?v=FUMPsmKnKv8) (A. Stephanov)
+# [Efficient Programming with Components, Lecture 2](https://www.youtube.com/watch?v=FUMPsmKnKv8) (Alexander Stephanov)
 
 * Continue: Part 2, 6:00
 * "There are ladies present, so I can not tell you everything I think about Scott Meyers."
@@ -214,16 +222,76 @@
   step allowed for built-in types.
 * std::cin << 42; // :o)
 
-# [Efficient Programming with Components, Lecture 3](https://www.youtube.com/watch?v=sp_IBYVqMeQ) (A. Stephanov)
+# [Efficient Programming with Components, Lecture 3](https://www.youtube.com/watch?v=sp_IBYVqMeQ) (Alexander Stephanov)
 
 * Watched.
 
-# [Efficient Programming with Components, Lecture 4](https://www.youtube.com/watch?v=4pSqzrbjq4Q) (A. Stephanov)
+# [Efficient Programming with Components, Lecture 4](https://www.youtube.com/watch?v=4pSqzrbjq4Q) (Alexander Stephanov)
 
 * The result of xor on a signed type is undefined, since the xor operation on
   the sign bit is undefined...!
+* The requirement on the type of a template function min() is that it is
+  totally ordered. A partial ordering will not work, since then not every
+  element is comparable.
+* Equivalence does not mean equality. Equivalence that implies a certain
+  equivalence relation holds, which might be defined based on other criteria
+  than complete equality.
+* Some notes integrated into the notes for 'Programming Conversations, Lecture
+  10'.
 
-  Part 2 (~9m)
+# [Efficient Programming with Components, Lecture 5](https://www.youtube.com/watch?v=8bWx2WTYvB8) (Alexander Stephanov)
+
+* When introducing a version of `min()`, that has a default comparison
+  operator, introduce a wrapper function around the more generic function
+  taking the comparison function. This allows taking the address of the version
+  of `min()` that has a default comparison operator.
+* Issue with `std::max` in the standard, `std::max(a, b)`, with `a ~ b`, should
+  return `b` instead of `a`, for reasons of stability of the input arguments.
+  Suppose you would want to use `std::max` to implement a sort function, it is
+  hard to use it for a stable sort algorithm, since it will swap equivalent
+  values.
+* When writing the equivalent of `std::min_element` that takes an input range,
+  you want to return an iterator, because:
+
+    1. You might want to update the value afterwards (or delete it).
+    2. You may be interested in its position in the input range.
+    3. The input range might be empty, so you would otherwise need to find a
+       bottom value for the value type of the range.
+* Alex prefers not to use prefix/postfix operators inside expressions for
+  maintainability reasons. "You don't have to write everything in a single
+  line."
+* Difference between ForwardIterator and InputIterator; an InputIterator deals
+  with streams, where the pointed to values are ephemeral, and can not be hold
+  on to. For a ForwardIterator, this is not the case.
+* Nice min/max algorithm that only takes 3(N / 2) comparisons vs. the naive 2(N
+  - 1) number of comparisons. Every iteration, take two candidate elements and
+  compare those to figure out a candidate min, and candidate max element.
+
+# [Efficient Programming with Components, Lecture 6](https://www.youtube.com/watch?v=lWSYE-hRw0s) (Alexander Stephanov)
+
+* Rewatch.
+
+# [Efficient Programming with Components, Lecture 7](https://www.youtube.com/watch?v=yUZ3y5w3f0o) (Alexander Stephanov)
+
+* You are allowed to reuse the name of a member variable for the constructor
+  parameter, since the constructor parameter is in an outer scope.
+
+# [Efficient Programming with Components, Lecture 8](https://www.youtube.com/watch?v=RdQM3c-0eiA) (Alexander Stephanov)
+
+* Chose to implement functionality for a class with a stand-alone function in
+  case the function can be implemented using the existing public interface of a
+  class (~34m, part 2).
+
+# [Efficient Programming with Components, Lecture 9](https://www.youtube.com/watch?v=5gPpZLUvvEE) (Alexander Stephanov)
+
+* When implementing complex template functions, start with the body, fill in
+  the template parameters later (~23m, part 2).
+
+# [Efficient Programming with Components, Lecture 10](https://www.youtube.com/watch?v=rFgiMPZnaiw) (Alexander Stephanov)
+
+* iterator_traits exists as a type function to map a certain type to another
+  type. Some types (notably pointers) do not allow the definition of member
+  types for this purpose.
 
 # [Papers I Have Loved](...) (C. Moraturi)
 
@@ -248,7 +316,7 @@
     composition(std::tuple<Ts...>&& d) : data_(std::move(d))
     {
       ... // Some form of initialization (Odin uses abilities here to query
-          // mixins to see whether they required initialization).
+          // mixins to see whether they require initialization).
     }
   };
   ```
@@ -270,3 +338,267 @@
   it was determined that our common 'mother' lived somewhere in east Africa
   some 120.000 years ago, at the start of the last great ice age. Very
   interesting.
+
+# [Embind and Emscripten: Blending C++11, JavaScript, and the Web Browser](https://www.youtube.com/watch?v=Dsgws5zJiwk) (Chad Austin)
+
+* Interesting example on using Web Audio with C++, will be fun to experiment
+  with a bit.
+* #DEFINE EMSCRIPTEN_HAS_UNBOUND_TYPE_NAMES 0
+* Calling JavaScript from C++ is a concern in terms of performance, research
+  this a bit.
+
+# [C++ on the Web: Let's Have Some Serious Fun](https://www.youtube.com/watch?v=jXMtQ2fTl4c) (Dan Gohman)
+
+* The only way for WASM modules to communicate with the outside world is
+  through imports and exports (~30m).
+* No plans for direct communication with native shared object code (~53m).
+
+# [Docker Based C++ Dependency and Build Management](https://www.youtube.com/watch?v=lmIc0MgWBEI) (Jason Rice)
+
+* Would it be possible to use a Dockerfile to manage the fractal-thirdparty
+  build process...? Multi-stage builds might work in this context.
+
+# [Let's Make a Web Match-3 Game in C++14](https://www.youtube.com/watch?v=GHA1HVOILqQ) (Kris Jusiak)
+
+# [GNU Guix: The Functional GNU/Linux Distro That’s a Scheme Library](https://www.youtube.com/watch?v=WOolAnW9a6Y) (Ludovic Courtès)
+
+* initrd: initial ramdisk, responsible for mounting the root filesystem for
+  example.
+
+# [Patterns and Techniques Used in the Houdini 3D Graphics Application](https://www.youtube.com/watch?v=2YXwg0n9e7E) (Mark Elendt)
+
+* Interesting tidbits about paged COW arrays (~47m).
+* Houdini uses OpenCL exclusively for GPU programming.
+* Use jemalloc as the underlying memory allocator (probably because of the
+  heavy use of threading in Houdini...?).
+* USD: Universal Scene Description (Pixar).
+
+# [C++ in Elvenland](https://www.youtube.com/watch?v=CVg7CYVV3KI) (Serge Guelton)
+
+* `inline` implies weak symbols, the only guaranteed effect of the `inline` keyword.
+
+# [Debugging Linux C++](https://www.youtube.com/watch?v=V1t6faOKjuQ) (Greg Law)
+
+* Using richer debug information with: '-ggdb3'...
+* Good ~/.gdbinit basics:
+
+    set history save on
+    set print pretty on
+    set pagination off
+    set confirm off
+
+* Watchpoints are interesting:
+
+    watch foo                   # stop when foo is modified
+    watch foor if foo > 10      # watch foo when it gets larger than 10
+    rwatch foo                  # watch foo when it is read
+    watch foo thread 3          # watch foo when thread 3 modifies it
+    watch -l foo                # watch location
+
+* Perform an action across threads:
+
+    thread apply all backtrace
+    thread apply 1-4 print $p
+    thread apply all backtrace full     # backtrace including local variables
+
+* Dynamic printf (wtf):
+
+    dprintf fn,"This print does not have to be compiled: %s", my_string
+
+  Settings:
+
+    set dprintf-style gdb|agent|call
+    set dprintf-function fprintf
+
+* Catchpoints:
+
+    catch catch                # catch when an exception is caugt
+    catch syscall nanosleep    # stop at the nanosleep syscall
+    catch syscall 100          # stop at systemcall number 100
+
+* GCC address sanitizer:
+
+    gcc -fsanitize=address -static-libasan ...
+
+* Poor man's profiler:
+
+    ltrace -t cmd              # prefix every library call with a custom
+                               # command (wall clock time measurement for example)
+
+# [Generic Programming](https://www.youtube.com/watch?v=wJpxWHuZQY) (Sean Parent)
+
+* Monoid: data set that has an operation that is associative on it.
+* Mathematics is about discovery, about what is, not about discovery, about
+  what you wish it were. Based on the ideas of Euler. Goes against the ideas
+  from the 'Nicolas Bourbaki'-group.
+* Software is associated with algebraic structures.
+* Concept: set of axioms satisfied by a data type and a set of operations on
+  it.
+
+# [RVO: Harder Than It Looks] (https://www.youtube.com/watch?v=hA1WNtNyNbo) (Arthur O'Dwyer)
+
+* Returning big objects is done through a return slot address, which is passed
+  into the function using %rdi. It basically acts as a pointer. Note that the
+  pointer points into the stack.
+* Copy elision cannot happen when:
+
+    - The compiler does not yet know which copy to elide (there is a
+      conditional in the return statement).
+    - The physical location of the to-be-elided object is outside of our
+      control, for example, `return x` where `x` is a global variable, or a
+      function parameter for example. A copy needs to be made in these cases.
+    - Slicing of the return type happens. In case we need to return a type T,
+      and allocate and return a type U, where U is-a T, but of bigger size, we
+      cannot allocate the variable of type U in the return slot since that is
+      smaller and only fits variables of type T.
+
+* Never write `return std::move(x)` in C++11. It might prevent copy-elision,
+  and in C++11 implicit move when returning values happens anyway, there is no
+  need to cast to an rvalue.
+* Implicit move is not performed in case the first parameter of the move
+  constructor of the type that is returned by the function specification is not an rvalue reference of the
+  object's type that iret.
+
+# [OOP Is Dead, Long Live Data-oriented Design] (https://www.youtube.com/watch?v=yy8jQgmhbAU) (Stoyan Nikolov)
+
+* When using templates for type erasure (instead of an abstract base class), do
+  not worry about the fact that you can no longer have a single vector with
+  base class pointers anymore, just create a vector for each known concrete
+  type.
+
+# [Expect the Expected] (https://www.youtube.com/watch?v=PH4WBuE1BHI) (Andrei Alexandrescu)
+
+# [The Networking TS in Practice: Testable, Composable Asynchronous I/O in C++] (https://www.youtube.com/watch?v=hdRpCo94_C4) (Robert Leahy)
+
+* Asynchronous completion handler that moves itself into the completion handler
+  instead of relying on shared_ptr:
+
+     template<typename Handler>
+     void async_action(..., Handler&& handler)
+     {
+       ...
+       auto fn = [..., h = std::forward<Handler>(handler)](std::error_code ec) mutable
+       {
+         if (ec) h(ec, ...);
+         else asio::async_action(..., std::move(h));
+       };
+       io_object.async_action(std::move(fn));
+     }
+
+# [Design for Performance] (https://www.youtube.com/watch?v=m25p3EtBua4) (Fedor Pikus)
+
+* When there is nothing to optimize, there is hot data. Sometimes a single
+  access function stands out, but not its callers, calls are scattered all over
+  the place. Two options; access less data, or organize data differently, both
+  are design issues.
+
+# [Goals for Better Types - Implement Complete Types] (https://www.youtube.com/watch?v=mYrbivnruYw) (Sean Parent)
+
+* Transactional assignment can be implemented using a copy and move:
+
+  T& operator=(const T& b) {
+    T tmp = b; *this = std::move(tmp); return *this;
+  }
+
+  The advantage is that in case the copy throws, the assigned to object is no
+  left in an invalid state. This is not the most optimal implementation of
+  copy, but the performance gains for the optimal one are neglible.
+* Continuing on this; comment from the audience, why not use a sink argument
+  here. Response from Sean is that this messes with the rules of auto generated
+  assignment functions; using a sink argument causes the type effectively to
+  have no move assignment operator in case that type is used within the context
+  of another type U. Thus, U does not get an auto-generated move assignment
+  operator (verify this..., find defect number).
+* The functional programming guys say; we have no pointers! But they still have
+  indexes into list; i.e. they still have to deal with relations. Indexes into
+  lists have the same problems as pointers.
+
+# [More Modern CMake] (https://www.youtube.com/watch?v=y7ndUhdQuU8) (Deniz Bahadir)
+
+* target_link_libraries should always be used with the PRIVATE, PUBLIC, and
+  INTERFACE keywords, otherwise it triggers some deprecated behavior.
+  Also, target_link_libraries can not be used to set build requirements
+  (PRIVATE) of a target from a different directory!
+* add_library() can be called without sources, then target_sources() can be
+  used to add sources to the target, specifying again PRIVATE, PUBLIC, and
+  INTERFACE.
+* An IMPORTED target is a target that can be referred to, but which is not
+  build .
+* x PRIVATE y: usage requirements of y becomes build requirements of x
+  x INTERFACE y: usage requirements of y becomes usages requirements of x
+  x PUBLIC y: usage requirements of y becomes usage/build requirements of x
+* For OBJECT libraries its requirements are only ever propagated to direct
+  descendants, and only if that direct descendant is not an OBJECT library
+  itself. This means that usage requirements of an OBJECT library can only
+  become build requirements for its direct descendants! (3.12 restriction
+  only).
+
+# [Handmade Hero: Day 19] (https://www.youtube.com/watch?v=qFl62ka51Mc) (Casey Moraturi)
+
+* The theory of units and how they cancel out when multiplying ratio's;
+  dimensional analysis (~17m).
+
+# [Type Deduction and Why You Care] (https://www.youtube.com/watch?v=wQxj20X-tIU) (Scott Meyers)
+
+* By value lambda captures preserve cv-qualifiers. The only place in C++ where
+  cv-qualifiers are preserved in a type deduction context (~41m).
+* By default, the function call operator for a lambda is const qualified
+  (~41m).
+* auto is never a reference type!
+* Interesting observations on decltype(auto), to be able to influence auto
+  function return type deduction (~58m).
+
+# [SICP, Lecture 2A] (https://www.youtube.com/watch?v=eJeMOEiHv8) (G. J. Sussman)
+
+* Higher order functions are functions taking functions as their arguments that
+  produce functions as values.
+
+# [Category Theory 1.1: Motivation and Philosophy] (https://www.youtube.com/watch?v=I8LbkfSSR58) (B. Milewski)
+
+* Object Oriented paradigm does not mix well with concurrency; object oriented
+  programming abstracts exactly the wrong things:
+
+    1) mutation of state
+    2) sharing of state
+
+  Thus, Object Oriented programming is abstracting over data races by design.
+
+# [Category Theory 1.2: What is a category?] (https://www.youtube.com/watch?v=p54Hd7AmVFU) (B. Milewski)
+
+* The major tools in our arsenal are:
+    - Abstraction
+    - Composition
+    - Identity
+* Equality (identical), and 'identical for all intents and purposes';
+  isomorphism.
+* Composition and identity define category theory.
+* A category consists of:
+    - a class of objects
+    - with some arrows (morphisms) between them
+* Objects have no properties. Morphisms have no properties except that they
+  have a beginning and an end:
+
+    a  * --------> * b
+
+* Composition: g ∘ f. g after f, in a picture:
+
+    a     f      b     g      c
+    * ---------> * ---------> *
+
+* Morphisms f and g are composible in case f ends where g starts.
+* Identity: every object needs to have an identity morphism (an arrow pointing to itself), such that:
+
+    g ∘ id(a) = g, and id(a) ∘ f = f
+
+* Axiom: (h ∘ g) ∘ f = h ∘ (g ∘ f), i.e. associativity
+* Example of a category from the real world, type category, with as objects
+  types, and as the morphisms functions.
+
+# [Performance Matters] (https://www.youtube.com/watch?v=r-TLSBdHe1A) (Emery Berger)
+
+* Link order and environment variable size (moves the program stack) can have a
+  larger impact on performance than using -O3 over -O0.
+
+# [Speed is found in the minds of people] (https://www.youtube.com/watch?v=FJJTYQYB1JQ) (Andrei Alexandrescu)
+
+* Nice examples of using Boolean arithmetic to prevent branches.

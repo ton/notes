@@ -52,12 +52,16 @@ Linux
 
   Resident memory: memory allocated and mapped to pages
 
+* Pin a program on a certain core: taskset -c 0 ./myprogram
+
 Algorithms
 ----------
 
 * Very interesting post on integer modulo and using the Golden Ratio to evenly
   map numbers from a certain range onto a smaller range (used in the context of
   hash maps).
+* A binary relation R is total if for every pair of elements a and b, a R b, or
+  b R a, or both.
 
 Style
 -----
