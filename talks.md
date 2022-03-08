@@ -435,7 +435,7 @@
 * Concept: set of axioms satisfied by a data type and a set of operations on
   it.
 
-# [RVO: Harder Than It Looks] (https://www.youtube.com/watch?v=hA1WNtNyNbo) (Arthur O'Dwyer)
+# [RVO: Harder Than It Looks](https://www.youtube.com/watch?v=hA1WNtNyNbo) (Arthur O'Dwyer)
 
 * Returning big objects is done through a return slot address, which is passed
   into the function using %rdi. It basically acts as a pointer. Note that the
@@ -459,16 +459,16 @@
   constructor of the type that is returned by the function specification is not an rvalue reference of the
   object's type that iret.
 
-# [OOP Is Dead, Long Live Data-oriented Design] (https://www.youtube.com/watch?v=yy8jQgmhbAU) (Stoyan Nikolov)
+# [OOP Is Dead, Long Live Data-oriented Design](https://www.youtube.com/watch?v=yy8jQgmhbAU) (Stoyan Nikolov)
 
 * When using templates for type erasure (instead of an abstract base class), do
   not worry about the fact that you can no longer have a single vector with
   base class pointers anymore, just create a vector for each known concrete
   type.
 
-# [Expect the Expected] (https://www.youtube.com/watch?v=PH4WBuE1BHI) (Andrei Alexandrescu)
+# [Expect the Expected](https://www.youtube.com/watch?v=PH4WBuE1BHI) (Andrei Alexandrescu)
 
-# [The Networking TS in Practice: Testable, Composable Asynchronous I/O in C++] (https://www.youtube.com/watch?v=hdRpCo94_C4) (Robert Leahy)
+# [The Networking TS in Practice: Testable, Composable Asynchronous I/O in C++](https://www.youtube.com/watch?v=hdRpCo94_C4) (Robert Leahy)
 
 * Asynchronous completion handler that moves itself into the completion handler
   instead of relying on shared_ptr:
@@ -485,14 +485,14 @@
        io_object.async_action(std::move(fn));
      }
 
-# [Design for Performance] (https://www.youtube.com/watch?v=m25p3EtBua4) (Fedor Pikus)
+# [Design for Performance](https://www.youtube.com/watch?v=m25p3EtBua4) (Fedor Pikus)
 
 * When there is nothing to optimize, there is hot data. Sometimes a single
   access function stands out, but not its callers, calls are scattered all over
   the place. Two options; access less data, or organize data differently, both
   are design issues.
 
-# [Goals for Better Types - Implement Complete Types] (https://www.youtube.com/watch?v=mYrbivnruYw) (Sean Parent)
+# [Goals for Better Types - Implement Complete Types](https://www.youtube.com/watch?v=mYrbivnruYw) (Sean Parent)
 
 * Transactional assignment can be implemented using a copy and move:
 
@@ -513,7 +513,7 @@
   indexes into list; i.e. they still have to deal with relations. Indexes into
   lists have the same problems as pointers.
 
-# [More Modern CMake] (https://www.youtube.com/watch?v=y7ndUhdQuU8) (Deniz Bahadir)
+# [More Modern CMake](https://www.youtube.com/watch?v=y7ndUhdQuU8) (Deniz Bahadir)
 
 * target_link_libraries should always be used with the PRIVATE, PUBLIC, and
   INTERFACE keywords, otherwise it triggers some deprecated behavior.
@@ -533,12 +533,12 @@
   become build requirements for its direct descendants! (3.12 restriction
   only).
 
-# [Handmade Hero: Day 19] (https://www.youtube.com/watch?v=qFl62ka51Mc) (Casey Moraturi)
+# [Handmade Hero: Day 19](https://www.youtube.com/watch?v=qFl62ka51Mc) (Casey Moraturi)
 
 * The theory of units and how they cancel out when multiplying ratio's;
   dimensional analysis (~17m).
 
-# [Type Deduction and Why You Care] (https://www.youtube.com/watch?v=wQxj20X-tIU) (Scott Meyers)
+# [Type Deduction and Why You Care](https://www.youtube.com/watch?v=wQxj20X-tIU) (Scott Meyers)
 
 * By value lambda captures preserve cv-qualifiers. The only place in C++ where
   cv-qualifiers are preserved in a type deduction context (~41m).
@@ -548,12 +548,12 @@
 * Interesting observations on decltype(auto), to be able to influence auto
   function return type deduction (~58m).
 
-# [SICP, Lecture 2A] (https://www.youtube.com/watch?v=eJeMOEiHv8) (G. J. Sussman)
+# [SICP, Lecture 2A](https://www.youtube.com/watch?v=eJeMOEiHv8) (G. J. Sussman)
 
 * Higher order functions are functions taking functions as their arguments that
   produce functions as values.
 
-# [Category Theory 1.1: Motivation and Philosophy] (https://www.youtube.com/watch?v=I8LbkfSSR58) (B. Milewski)
+# [Category Theory 1.1: Motivation and Philosophy](https://www.youtube.com/watch?v=I8LbkfSSR58) (B. Milewski)
 
 * Object Oriented paradigm does not mix well with concurrency; object oriented
   programming abstracts exactly the wrong things:
@@ -563,7 +563,7 @@
 
   Thus, Object Oriented programming is abstracting over data races by design.
 
-# [Category Theory 1.2: What is a category?] (https://www.youtube.com/watch?v=p54Hd7AmVFU) (B. Milewski)
+# [Category Theory 1.2: What is a category?](https://www.youtube.com/watch?v=p54Hd7AmVFU) (B. Milewski)
 
 * The major tools in our arsenal are:
     - Abstraction
@@ -594,11 +594,11 @@
 * Example of a category from the real world, type category, with as objects
   types, and as the morphisms functions.
 
-# [Performance Matters] (https://www.youtube.com/watch?v=r-TLSBdHe1A) (Emery Berger)
+# [Performance Matters](https://www.youtube.com/watch?v=r-TLSBdHe1A) (Emery Berger)
 
 * Link order and environment variable size (moves the program stack) can have a
   larger impact on performance than using -O3 over -O0.
 
-# [Speed is found in the minds of people] (https://www.youtube.com/watch?v=FJJTYQYB1JQ) (Andrei Alexandrescu)
+# [Speed is found in the minds of people](https://www.youtube.com/watch?v=FJJTYQYB1JQ) (Andrei Alexandrescu)
 
 * Nice examples of using Boolean arithmetic to prevent branches.
