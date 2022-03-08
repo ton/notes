@@ -602,3 +602,13 @@
 # [Speed is found in the minds of people](https://www.youtube.com/watch?v=FJJTYQYB1JQ) (Andrei Alexandrescu)
 
 * Nice examples of using Boolean arithmetic to prevent branches.
+
+# [Better Code: Datastructures](https://www.youtube.com/watch?v=sWgDk-o-6ZE) (Sean Parent)
+
+* `stable_partition_position`; `stable_partition` that projects the predicate
+  from a position in the input range to some other range.
+
+# [C++ Seasoning](https://www.youtube.com/watch?v=qH6sSOr-yk8) (Sean Parent)
+
+* Demonstrates how to avoid having to put pointers to some polymorphic type in
+  a container, by means of type erasure. Starts around the 1h mark.
